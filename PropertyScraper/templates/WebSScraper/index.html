@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scraping 99acres</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin: 20px auto;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <form method="post" action="{% url 'index' %}" id="filter-button">
+        {% csrf_token %}
+        <label for="filter_criteria">Filter Criteria:</label>
+        <select id="filter_criteria" name="filter_criteria">
+            <option value="All" selected="selected">All</option>
+            <option value="Pune">Pune</option>
+            <option value="Delhi">Delhi</option>
+            <option value="Mumbai">Mumbai</option>
+            <option value="Lucknow">Lucknow</option>
+            <option value="Ahmedabad" type="submit">Ahmedabad</option>
+            <option value="Kolkata">Kolkata</option>
+            <option value="Jaipur">Jaipur</option>
+            <option value="Chennai">Chennai</option>
+            <option value="Bengaluru">Bengaluru</option>
+            <!-- Add more options as needed -->
+        </select>
+        <input type="submit" value="Submit">
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th>Property Name</th>
+                <th>Property Cost</th>
+                <th>Property Type</th>
+                <th>Property Locality</th>
+                <th>Property City</th>
+                <th>Property Area</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in entries %}
+            <tr>
+                <td>{{ entry.property_name }}</td>
+                <td>{{ entry.property_cost }}</td>
+                <td>{{ entry.property_type }}</td>
+                <td>{{ entry.property_locality }}</td>
+                <td>{{ entry.property_city }}</td>
+                <td>{{ entry.property_area }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+        {% if city%}
+        <script>
+            var city = '{{ city }}'
+            console.log(city)
+            document.getElementById('filter_criteria').value = city;
+        </script>
+        {% endif %}
+    <!-- <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('filter-button').addEventListener('click', function() {
+                // Get the value of the selected option from the dropdown
+                var selectElement = document.getElementById('filter_criteria');
+                var selectedValue = selectElement.options[selectElement.selectedIndex].value;
+                
+                // Do something with the selectedValue, or submit the form
+                // alert("Selected Value: " + selectedValue);
+                
+                // Submit the form
+                document.getElementById('filter-form').submit();
+            });
+        });
+    </script>     -->
+</body>
+</html>
