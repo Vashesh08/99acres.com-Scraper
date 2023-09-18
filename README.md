@@ -21,6 +21,11 @@ Activate the virtualenv in Linux
 source bin\activate
 ```
 
+Clone the repo
+```
+git clone https://github.com/Vashesh08/99acres.com-Scraper.git
+```
+
 
 Install the requirement list
 ```
